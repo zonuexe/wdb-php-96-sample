@@ -1,0 +1,14 @@
+#!/usr/bin/php
+<?php
+
+$dotenv_path = __DIR__ . '/.env';
+if (!file_exists($dotenv_path)) {
+    $dotenv_content = <<<EOT
+# 開発モード
+MY_PHP_ENV=development
+
+# 本番運用モード (↓の行の # を消してください)
+#MY_PHP_ENV=production
+EOT;
+    file_put_contents($dotenv_path, $dotenv_content);
+}

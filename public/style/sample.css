@@ -1,0 +1,34 @@
+.greeting {
+    font-size: xx-large;
+}
+.greeting var {
+    font-style: normal;
+    quotes: "「" "」";
+}
+.greeting var::before {content: open-quote; }
+.greeting var::after  {content: close-quote; }
+code {
+    background-color: #555;
+    color: #F0F0F0;
+    font-family: "Courier new", monospace;
+    padding: 5px;
+    margin: 0 4px;
+    border-radius: 6px;
+}
+code.file {
+    background-color: #DDD;
+    color: #333;
+}
+
+.error-log table {
+    border: solid 1px;
+}
+
+.error-log code {
+    background-color: inherit;
+    color: inherit;
+    font-family: "Courier new", monospace;
+    padding: inherit;
+    margin: inherit;
+    border-radius: inherit;
+}

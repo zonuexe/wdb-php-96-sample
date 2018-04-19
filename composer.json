@@ -1,0 +1,16 @@
+{
+    "name": "zonuexe/wdb91-phpdoc",
+    "description": "WEB+DB PRESS Vol.96のPHP大規模開発入門サンプルコードです.",
+    "autoload": {
+        "files": ["inc/functions.php"]
+    },
+    "require": {
+        "filp/whoops": "~2.1",
+        "psy/psysh": "dev-develop",
+        "vlucas/phpdotenv": "~2.4",
+        "monolog/monolog": "~1.21|~1.18"
+    },
+    "require-dev": {
+        "hoa/console": "~3.16|~1.14"
+    }
+}
