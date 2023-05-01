@@ -8,7 +8,7 @@ ini_set('date.timezone', 'asia/tokyo');
 
 
 if (file_exists(__DIR__ . '/../.env')) {
-    $dotenv = new \Dotenv\Dotenv(__DIR__ . '/../');
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
 
     // 必須設定項目が記述されているか

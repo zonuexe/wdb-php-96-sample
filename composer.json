@@ -5,12 +5,13 @@
         "files": ["inc/functions.php"]
     },
     "require": {
-        "filp/whoops": "~2.1",
-        "psy/psysh": "dev-develop",
-        "vlucas/phpdotenv": "~2.4",
-        "monolog/monolog": "~1.21|~1.18"
+        "php": ">=7.3",
+        "filp/whoops": "^2.15",
+        "monolog/monolog": "^2.9",
+        "psy/psysh": "^0.11.16",
+        "vlucas/phpdotenv": "^5.5"
     },
-    "require-dev": {
-        "hoa/console": "~3.16|~1.14"
+    "config": {
+        "sort-packages": true
     }
 }
