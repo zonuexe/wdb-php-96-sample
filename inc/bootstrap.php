@@ -22,7 +22,7 @@ if (is_production()) {
     // エラー情報が画面に出力されないようにする
     ini_set('display_errors', '0');
 
-    $whoops_handler = new \Whoops\Handler\CallbackHandler('\WebDB96\Sample\my_shutdown_handler');
+    $whoops_handler = new \Whoops\Handler\CallbackHandler(\WebDB96\Sample\my_shutdown_handler(...));
 } else {
     // 全てのエラー出力を有効にする
     error_reporting(E_ALL);
@@ -48,7 +48,7 @@ $whoops->register();
 $monolog_handlers = [];
 if (is_production()) {
     ini_set("log_errors", "1");
-    $monolog_handlers[] = new \Monolog\Handler\ErrorLogHandler(0, \Monolog\Logger::WARNING);
+    $monolog_handlers[] = new \Monolog\Handler\ErrorLogHandler(0, \Monolog\Level::Warning);
 } else {
     $log_file = __DIR__ . "/../{$_ENV['MY_PHP_ENV']}.log";
     $monolog_handlers[] = new \Monolog\Handler\StreamHandler($log_file);

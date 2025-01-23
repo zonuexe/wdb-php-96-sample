@@ -23,16 +23,16 @@ $log = get_error_log();
             <th>時間</th>
             <th>メッセージ</th>
         </tr>
-        <?php foreach ($log as $row): ?>
+        <?php foreach ($log as $row): $time = explode('.', $row['time'])[0] ?>
             <tr>
-                <td><?= h(date('Y-m-d H:i:s', $row['time'])) ?></td>
-                <td><a href="?time=<?= h($row['time']) ?>"><?= h($row['message']) ?></a></td>
+                <td><?= h(date('Y-m-d H:i:s', $time)) ?></td>
+                <td><a href="?time=<?= h($time) ?>"><?= h($row['message']) ?></a></td>
             </tr>
         <?php endforeach; ?>
     </table>
 <?php else: ?>
-    <?php foreach ($log as $row): ?>
-        <?php if ($time === $row['time']): ?>
+    <?php foreach ($log as $row): $row_time = explode('.', $row['time'])[0] ?>
+        <?php if ($time === $row_time): ?>
             <article class="error-log">
                 <h3><?= h($row['message']) ?></h3>
                 <table>
@@ -59,7 +59,7 @@ function print_table($key, $value) { ?>
                 } ?>
             </table>
         <?php else: ?>
-            <code><?= h($value) ?></code>
+            <code><?= h($value ?? '') ?></code>
         <?php endif; ?>
     </td>
     </tr>

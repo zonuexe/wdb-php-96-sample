@@ -9,7 +9,9 @@
 
 namespace WebDB96\Sample;
 
+use Monolog\Level;
 use Monolog\Logger;
+use Throwable;
 
 /** @return bool */
 function is_production()
@@ -44,7 +46,7 @@ function get_greeting(\DateTimeInterface $datetime)
 /**
  * 文字列をHTMLエスケープします
  */
-function h($s)
+function h(string $s): string
 {
     return htmlspecialchars($s, ENT_QUOTES);
 }
@@ -57,7 +59,7 @@ function h($s)
  * @param  \Monolog\Logger $logger
  * @return \Monolog\Logger
  */
-function logger(\Monolog\Logger $new_logger = null)
+function logger(?\Monolog\Logger $new_logger = null)
 {
     static $logger;
 
@@ -72,20 +74,17 @@ function logger(\Monolog\Logger $new_logger = null)
  * ロガーのインスタンスを返す
  *
  * logger()->warn
- *
- * @param  \Monolog\Logger $logger
- * @return \Monolog\Logger
  */
-function chrome()
+function chrome(): Logger
 {
     static $logger;
 
     if ($logger === null) {
         $logger = new \Monolog\Logger('chrome');
         if (is_production()) {
-            $handler = new \Monolog\Handler\NullHandler(Logger::WARNING);
+            $handler = new \Monolog\Handler\NullHandler(Level::Warning);
         } else {
-            $handler = new \Monolog\Handler\ChromePHPHandler(Logger::WARNING);
+            $handler = new \Monolog\Handler\ChromePHPHandler(Level::Warning);
         }
 
         $logger->pushHandler($handler);
@@ -97,7 +96,7 @@ function chrome()
 /**
  * 本番環境での終了時に呼ばれる関数
  */
-function my_shutdown_handler($exception, $inspector, $run)
+function my_shutdown_handler(Throwable $exception): never
 {
     // ここでは簡易ログのみを記録する
     logger()->error(get_class($exception), [
@@ -112,7 +111,7 @@ function my_shutdown_handler($exception, $inspector, $run)
         echo "<h1>Server Error</h1>\n";
         echo "<p>当たり障りのないエラーメッセージを出力します。</p>\n\n";
         echo "<hr>";
-        printf("<p>現在の環境は<code>%s</code>です</p>\n", h($_ENV['MY_PHP_ENV']));
+        echo sprintf("<p>現在の環境は<code>%s</code>です</p>\n", h($_ENV['MY_PHP_ENV']));
         echo '<p><code class="file">.env</code>ファイルで<code>MY_PHP_ENV=develop</code>を設定すると<em>Whoops</em>を使ったエラー表示に切り替わります。</p>';
     }
     exit(1);
@@ -121,7 +120,7 @@ function my_shutdown_handler($exception, $inspector, $run)
 /**
  * バックトレースとログ情報を記録する関数
  */
-function my_whoops_logger_handler($exception, $inspector, $run)
+function my_whoops_logger_handler(Throwable $exception, $inspector, $run)
 {
     $logfile = __DIR__ . '/../error.log';
 
